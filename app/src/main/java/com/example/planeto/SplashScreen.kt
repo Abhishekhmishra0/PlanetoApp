@@ -1,25 +1,31 @@
 package com.example.planeto
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
-class MainActivity : AppCompatActivity() {
+@SuppressLint("CustomSplashScreen")
+class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_splash_screen)
+
         window.decorView.apply {
             systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
         }
-        val myRecycler = findViewById<RecyclerView>(R.id.my_recycler)
-        myRecycler.adapter = Adapter(setData.SetPlanets())
-        myRecycler.layoutManager = LinearLayoutManager(this)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            var intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
+        },5000)
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
